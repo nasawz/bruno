@@ -77,6 +77,9 @@ class BrnTextInputFormItem extends StatefulWidget {
   final int maxCharCount;
   List<TextInputFormatter> inputFormatters;
 
+  /// 文本是否隐藏
+  final bool obscureText;
+
   /// 输入变化回调
   final ValueChanged<String> onChanged;
 
@@ -106,11 +109,11 @@ class BrnTextInputFormItem extends StatefulWidget {
     this.maxCharCount,
     this.inputType,
     this.inputFormatters,
+    this.obscureText: false,
     this.onChanged,
     this.controller,
     this.themeData,
   }) : super(key: key) {
-
     this.themeData ??= BrnFormItemConfig();
     this.themeData = BrnThemeConfigurator.instance
         .getConfig(configId: this.themeData.configId)
@@ -122,7 +125,6 @@ class BrnTextInputFormItem extends StatefulWidget {
   State<StatefulWidget> createState() {
     return BrnTextInputFormItemState();
   }
-
 }
 
 class BrnTextInputFormItemState extends State<BrnTextInputFormItem> {
@@ -133,7 +135,6 @@ class BrnTextInputFormItemState extends State<BrnTextInputFormItem> {
     _controller = widget.controller ?? TextEditingController();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -150,23 +151,31 @@ class BrnTextInputFormItemState extends State<BrnTextInputFormItem> {
             child: Row(
               children: <Widget>[
                 Container(
-                  padding: BrnFormUtil.titleEdgeInsets(
-                      widget.prefixIconType, widget.isRequire, widget.themeData),
+                  padding: BrnFormUtil.titleEdgeInsets(widget.prefixIconType,
+                      widget.isRequire, widget.themeData),
                   child: Row(
                     children: <Widget>[
-                      BrnFormUtil.buildPrefixIcon(widget.prefixIconType, widget.isEdit, context, widget.onAddTap, widget.onRemoveTap),
+                      BrnFormUtil.buildPrefixIcon(
+                          widget.prefixIconType,
+                          widget.isEdit,
+                          context,
+                          widget.onAddTap,
+                          widget.onRemoveTap),
                       BrnFormUtil.buildRequireWidget(widget.isRequire),
-                      BrnFormUtil.buildTitleWidget(widget.title, widget.themeData),
+                      BrnFormUtil.buildTitleWidget(
+                          widget.title, widget.themeData),
                       Offstage(
                         offstage: (widget.prefixText == null),
                         child: Container(
                             padding: EdgeInsets.only(left: 10, right: 10),
                             child: Text(
                               widget.prefixText ?? "",
-                              style: BrnFormUtil.getTitleTextStyle(widget.themeData),
+                              style: BrnFormUtil.getTitleTextStyle(
+                                  widget.themeData),
                             )),
                       ),
-                      BrnFormUtil.buildTipLabelWidget(widget.tipLabel, widget.onTip, widget.themeData),
+                      BrnFormUtil.buildTipLabelWidget(
+                          widget.tipLabel, widget.onTip, widget.themeData),
                     ],
                   ),
                 ),
@@ -176,26 +185,25 @@ class BrnTextInputFormItemState extends State<BrnTextInputFormItem> {
                     enabled: widget.isEdit,
                     maxLines: 1,
                     maxLength: widget.maxCharCount,
-                    style: BrnFormUtil.getIsEditTextStyle(widget.themeData, widget.isEdit),
+                    obscureText: widget.obscureText,
+                    style: BrnFormUtil.getIsEditTextStyle(
+                        widget.themeData, widget.isEdit),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintStyle: BrnFormUtil.getHintTextStyle(widget.themeData),
                       hintText: widget.hint ?? '请输入',
                       counterText: "",
-
                       contentPadding: EdgeInsets.all(0),
                       isDense: true,
-                      enabledBorder:
-                          UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                      focusedBorder:
-                          UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)),
                     ),
-
                     textAlign: TextAlign.end,
                     controller: _controller,
                     inputFormatters: widget.inputFormatters,
                     onChanged: (text) {
-
                       BrnFormUtil.notifyInputChanged(widget.onChanged, text);
                     },
                   ),
@@ -232,4 +240,3 @@ class BrnTextInputFormItemState extends State<BrnTextInputFormItem> {
     }
   }
 }
-
