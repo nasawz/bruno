@@ -132,7 +132,7 @@ class _BrnSelectionRangeItemWidgetState extends State<BrnSelectionRangeItemWidge
     return Expanded(
       child: TextFormField(
         style: widget.themeData.inputTextStyle?.generateTextStyle(),
-        inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         keyboardType: TextInputType.numberWithOptions(),
         onChanged: (input) {
           widget.item.isSelected = true;

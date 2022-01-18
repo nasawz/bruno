@@ -536,7 +536,7 @@ class __MoreRangeWidgetState extends State<_MoreRangeWidget> {
           textAlign: TextAlign.center,
           controller: textEditingController,
           cursorColor: BrnThemeConfigurator.instance.getConfig().commonConfig.brandPrimary,
-          inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           style: widget.themeData.inputTextStyle.generateTextStyle(),
           decoration: InputDecoration(
               hintText: hint,
