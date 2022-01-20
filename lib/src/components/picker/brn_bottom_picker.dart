@@ -34,6 +34,7 @@ class BrnBottomPicker {
     bool showTitle = true,
   }) {
     final ThemeData theme = Theme.of(context);
+
     showGeneralDialog(
       context: context,
       pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -45,7 +46,8 @@ class BrnBottomPicker {
           onConfirmPressed: onConfirm,
           onCancelPressed: onCancel,
           barrierDismissible: barrierDismissible,
-          pickerTitleConfig: BrnPickerTitleConfig(titleContent: title, showTitle: showTitle),
+          pickerTitleConfig:
+              BrnPickerTitleConfig(titleContent: title, showTitle: showTitle),
         );
         return theme != null ? Theme(data: theme, child: pageChild) : pageChild;
       },
@@ -103,8 +105,10 @@ class BrnBottomPickerWidgetState extends State<BrnBottomPickerWidget>
   void initState() {
     super.initState();
     //用于动画
-    _controller = AnimationController(duration: Duration(milliseconds: 300), vsync: this);
-    _animation = Tween(end: Offset.zero, begin: Offset(0.0, 1.0)).animate(_controller);
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
+    _animation =
+        Tween(end: Offset.zero, begin: Offset(0.0, 1.0)).animate(_controller);
     _controller.forward();
   }
 
@@ -130,8 +134,8 @@ class BrnBottomPickerWidgetState extends State<BrnBottomPickerWidget>
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   Widget _buildBottomWidget() {
@@ -139,10 +143,14 @@ class BrnBottomPickerWidgetState extends State<BrnBottomPickerWidget>
       position: _animation,
       child: BrnPickerClipRRect(
         borderRadius: BorderRadius.only(
-          topLeft:
-              Radius.circular(BrnThemeConfigurator.instance.getConfig().pickerConfig.cornerRadius),
-          topRight:
-              Radius.circular(BrnThemeConfigurator.instance.getConfig().pickerConfig.cornerRadius),
+          topLeft: Radius.circular(BrnThemeConfigurator.instance
+              .getConfig()
+              .pickerConfig
+              .cornerRadius),
+          topRight: Radius.circular(BrnThemeConfigurator.instance
+              .getConfig()
+              .pickerConfig
+              .cornerRadius),
         ),
         child: Container(
           color: Colors.white,
@@ -179,6 +187,7 @@ class BrnBottomPickerWidgetState extends State<BrnBottomPickerWidget>
         }
       },
       pickerTitleConfig: BrnPickerTitleConfig(
+        titleContent: widget.pickerTitleConfig.titleContent,
         cancel: _buildCancelWidget(),
         confirm: _buildConfirmWidget(),
       ),
@@ -213,7 +222,10 @@ class BrnBottomPickerWidgetState extends State<BrnBottomPickerWidget>
     return Text(
       string,
       style: TextStyle(
-          color: BrnThemeConfigurator.instance.getConfig().commonConfig.brandPrimary,
+          color: BrnThemeConfigurator.instance
+              .getConfig()
+              .commonConfig
+              .brandPrimary,
           fontSize: 16.0),
       textAlign: TextAlign.right,
     );
@@ -223,7 +235,10 @@ class BrnBottomPickerWidgetState extends State<BrnBottomPickerWidget>
     return Text(
       string ?? '取消',
       style: TextStyle(
-          color: BrnThemeConfigurator.instance.getConfig().commonConfig.colorTextBase,
+          color: BrnThemeConfigurator.instance
+              .getConfig()
+              .commonConfig
+              .colorTextBase,
           fontSize: 16.0),
       textAlign: TextAlign.right,
     );
