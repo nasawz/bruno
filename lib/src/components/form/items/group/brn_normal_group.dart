@@ -71,7 +71,6 @@ class BrnNormalFormGroup extends StatefulWidget {
     this.deleteLabel,
     this.children,
   }) : super() {
-
     this.themeData ??= BrnFormItemConfig();
     this.themeData = BrnThemeConfigurator.instance
         .getConfig(configId: this.themeData.configId)
@@ -83,7 +82,6 @@ class BrnNormalFormGroup extends StatefulWidget {
   BrnNormalFormGroupState createState() {
     return BrnNormalFormGroupState();
   }
-
 }
 
 class BrnNormalFormGroupState extends State<BrnNormalFormGroup> {
@@ -95,63 +93,69 @@ class BrnNormalFormGroupState extends State<BrnNormalFormGroup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 14),
       color: Colors.white,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Offstage(
-                  offstage: (widget.title == null || widget.title.isEmpty),
-                  child: Container(
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.only(left: 20, right: 6),
-                            child: Text(
-                              widget.title ?? "",
-                              style:
-                                  BrnFormUtil.getHeadTitleTextStyle(widget.themeData, isBold: true),
-                            )),
-                      ],
+          Offstage(
+            offstage: (widget.title == null || widget.title.isEmpty),
+            child: Container(
+              padding: EdgeInsets.only(top: 14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Offstage(
+                    offstage: (widget.title == null || widget.title.isEmpty),
+                    child: Container(
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                              padding: EdgeInsets.only(left: 20, right: 6),
+                              child: Text(
+                                widget.title ?? "",
+                                style: BrnFormUtil.getHeadTitleTextStyle(
+                                    widget.themeData,
+                                    isBold: true),
+                              )),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Offstage(
-                  offstage: widget.deleteLabel == null,
-                  child: GestureDetector(
-                    onTap: () {
-                      if (!BrnFormUtil.isEdit(widget.isEdit)) {
-                        return;
-                      }
+                  Offstage(
+                    offstage: widget.deleteLabel == null,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (!BrnFormUtil.isEdit(widget.isEdit)) {
+                          return;
+                        }
 
-                      BrnFormUtil.notifyRemoveTap(context, widget.onRemoveTap);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        widget.deleteLabel ?? "",
-                        style: TextStyle(
-                          color: Color(0xFFFA3F3F),
-                          fontSize: BrnFont.FONT_16,
+                        BrnFormUtil.notifyRemoveTap(
+                            context, widget.onRemoveTap);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(right: 20),
+                        child: Text(
+                          widget.deleteLabel ?? "",
+                          style: TextStyle(
+                            color: Color(0xFFFA3F3F),
+                            fontSize: BrnFont.FONT_16,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
           // 副标题
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: BrnFormUtil.subTitleEdgeInsets(widget.themeData),
-            child: Offstage(
-              offstage: (widget.subTitle == null || widget.subTitle.isEmpty),
+          Offstage(
+            offstage: (widget.subTitle == null || widget.subTitle.isEmpty),
+            child: Container(
+              color: Colors.yellow,
+              alignment: Alignment.centerLeft,
+              padding: BrnFormUtil.subTitleEdgeInsets(widget.themeData),
               child: Text(
                 widget.subTitle ?? "",
                 style: BrnFormUtil.getSubTitleTextStyle(widget.themeData),
@@ -185,7 +189,4 @@ class BrnNormalFormGroupState extends State<BrnNormalFormGroup> {
 
     return result;
   }
-
 }
-
-

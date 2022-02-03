@@ -80,6 +80,9 @@ class BrnTextInputFormItem extends StatefulWidget {
   /// 文本是否隐藏
   final bool obscureText;
 
+  /// 自动焦点
+  final bool autofocus;
+
   /// 输入变化回调
   final ValueChanged<String> onChanged;
 
@@ -110,6 +113,7 @@ class BrnTextInputFormItem extends StatefulWidget {
     this.inputType,
     this.inputFormatters,
     this.obscureText: false,
+    this.autofocus: false,
     this.onChanged,
     this.controller,
     this.themeData,
@@ -181,6 +185,7 @@ class BrnTextInputFormItemState extends State<BrnTextInputFormItem> {
                 ),
                 Expanded(
                   child: TextField(
+                    autofocus: widget.autofocus,
                     keyboardType: BrnFormUtil.getInputType(widget.inputType),
                     enabled: widget.isEdit,
                     maxLines: 1,
