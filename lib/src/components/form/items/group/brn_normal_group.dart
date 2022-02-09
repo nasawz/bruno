@@ -100,7 +100,11 @@ class BrnNormalFormGroupState extends State<BrnNormalFormGroup> {
           Offstage(
             offstage: (widget.title == null || widget.title.isEmpty),
             child: Container(
-              padding: EdgeInsets.only(top: 14),
+              padding: EdgeInsets.only(
+                  top: 14,
+                  bottom: (widget.subTitle == null || widget.subTitle.isEmpty)
+                      ? 14
+                      : 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
