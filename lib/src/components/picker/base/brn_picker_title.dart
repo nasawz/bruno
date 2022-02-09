@@ -2,6 +2,7 @@ import 'package:bruno/src/components/picker/time_picker/brn_date_picker_constant
 import 'package:bruno/src/components/picker/base/brn_picker_title_config.dart';
 import 'package:bruno/src/theme/brn_theme.dart';
 import 'package:bruno/src/utils/i18n/brn_date_picker_i18n.dart';
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 
 /// DatePicker's title widget.
@@ -54,7 +55,8 @@ class BrnPickerTitle extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                GestureDetector(
+                ExpandTapWidget(
+                  tapPadding: EdgeInsets.all(25.0),
                   child: _renderCancelWidget(context),
                   onTap: () {
                     this.onCancel();
@@ -64,7 +66,8 @@ class BrnPickerTitle extends StatelessWidget {
                   pickerTitleConfig.titleContent,
                   style: themeData.titleTextStyle.generateTextStyle(),
                 ),
-                GestureDetector(
+                ExpandTapWidget(
+                  tapPadding: EdgeInsets.all(25.0),
                   child: _renderConfirmWidget(context),
                   onTap: () {
                     this.onConfirm();

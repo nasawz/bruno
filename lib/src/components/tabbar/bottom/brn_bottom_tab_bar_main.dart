@@ -2,6 +2,7 @@ import 'dart:collection' show Queue;
 import 'dart:math' as math;
 
 import 'package:bruno/src/components/tabbar/bottom/brn_bottom_tab_bar_item.dart';
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -161,7 +162,8 @@ class _BottomNavigationTile extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       heightFactor: 1.0,
       child: Container(
-        margin: const EdgeInsets.only(bottom: _kBottomMargin, top: _kmiddleInterval),
+        margin: const EdgeInsets.only(
+            bottom: _kBottomMargin, top: _kmiddleInterval),
         child: DefaultTextStyle.merge(
           style: TextStyle(
             fontSize: _kActiveFontSize,
@@ -171,7 +173,9 @@ class _BottomNavigationTile extends StatelessWidget {
           /// 使用矩阵变化控制字体大小
           child: Transform(
             transform: Matrix4.diagonal3Values(
-              scale, scale, scale,
+              scale,
+              scale,
+              scale,
             ),
             alignment: Alignment.bottomCenter,
             child: item.title,
@@ -240,19 +244,22 @@ class _BottomNavigationTile extends StatelessWidget {
     if (isInkResponse) {
       return InkResponse(
         onTap: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            _buildIcon(),
-            label,
-          ],
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _buildIcon(),
+              label,
+            ],
+          ),
         ),
       );
     }
-    return GestureDetector(
+    return ExpandTapWidget(
         onTap: onTap,
+        tapPadding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -304,7 +311,8 @@ class _BottomNavigationTile extends StatelessWidget {
 }
 
 /// 底部导航栏中状态控制类
-class _BottomTabBarState extends State<BrnBottomTabBar> with TickerProviderStateMixin {
+class _BottomTabBarState extends State<BrnBottomTabBar>
+    with TickerProviderStateMixin {
   List<AnimationController> _controllers = <AnimationController>[];
   List<CurvedAnimation> _animations;
 
@@ -314,20 +322,23 @@ class _BottomTabBarState extends State<BrnBottomTabBar> with TickerProviderState
   /// 执行完动画之后的背景颜色
   Color _backgroundColor;
 
-  static final Animatable<double> _flexTween = Tween<double>(begin: 1.0, end: 1.5);
+  static final Animatable<double> _flexTween =
+      Tween<double>(begin: 1.0, end: 1.5);
 
   void _resetState() {
     for (AnimationController controller in _controllers) controller.dispose();
     for (_Circle circle in _circles) circle.dispose();
     _circles.clear();
 
-    _controllers = List<AnimationController>.generate(widget.items.length, (int index) {
+    _controllers =
+        List<AnimationController>.generate(widget.items.length, (int index) {
       return AnimationController(
         duration: kThemeAnimationDuration,
         vsync: this,
       )..addListener(_rebuild);
     });
-    _animations = List<CurvedAnimation>.generate(widget.items.length, (int index) {
+    _animations =
+        List<CurvedAnimation>.generate(widget.items.length, (int index) {
       return CurvedAnimation(
         parent: _controllers[index],
         curve: Curves.fastOutSlowIn,
@@ -357,7 +368,8 @@ class _BottomTabBarState extends State<BrnBottomTabBar> with TickerProviderState
     super.dispose();
   }
 
-  double _evaluateFlex(Animation<double> animation) => _flexTween.evaluate(animation);
+  double _evaluateFlex(Animation<double> animation) =>
+      _flexTween.evaluate(animation);
 
   void _pushCircle(int index) {
     if (widget.items[index].backgroundColor != null) {
@@ -417,7 +429,8 @@ class _BottomTabBarState extends State<BrnBottomTabBar> with TickerProviderState
 
   /// 生成瓦片
   List<Widget> _createTiles() {
-    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+    final MaterialLocalizations localizations =
+        MaterialLocalizations.of(context);
     assert(localizations != null);
     final List<Widget> children = <Widget>[];
     switch (widget.type) {
@@ -449,10 +462,13 @@ class _BottomTabBarState extends State<BrnBottomTabBar> with TickerProviderState
               },
               colorTween: colorTween,
               selected: i == widget.currentIndex,
-              indexLabel: localizations.tabLabel(tabIndex: i + 1, tabCount: widget.items.length),
+              indexLabel: localizations.tabLabel(
+                  tabIndex: i + 1, tabCount: widget.items.length),
               isAnimation: widget.isAnimation,
               isInkResponse: widget.isInkResponse,
-              badgeColor: widget.badgeColor == null ? widget.fixedColor : widget.badgeColor,
+              badgeColor: widget.badgeColor == null
+                  ? widget.fixedColor
+                  : widget.badgeColor,
             ),
           );
         }
@@ -470,10 +486,13 @@ class _BottomTabBarState extends State<BrnBottomTabBar> with TickerProviderState
               },
               flex: _evaluateFlex(_animations[i]),
               selected: i == widget.currentIndex,
-              indexLabel: localizations.tabLabel(tabIndex: i + 1, tabCount: widget.items.length),
+              indexLabel: localizations.tabLabel(
+                  tabIndex: i + 1, tabCount: widget.items.length),
               isAnimation: widget.isAnimation,
               isInkResponse: widget.isInkResponse,
-              badgeColor: widget.badgeColor == null ? widget.fixedColor : widget.badgeColor,
+              badgeColor: widget.badgeColor == null
+                  ? widget.fixedColor
+                  : widget.badgeColor,
             ),
           );
         }
@@ -524,8 +543,9 @@ class _BottomTabBarState extends State<BrnBottomTabBar> with TickerProviderState
             ),
           ),
           ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: kBottomNavigationBarHeight + additionalBottomPadding),
+            constraints: BoxConstraints(
+                minHeight:
+                    kBottomNavigationBarHeight + additionalBottomPadding),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -596,10 +616,13 @@ class _Circle {
     final double allWeights = weightSum(state._animations);
 
     /// 这些权重和到索引项的起始边
-    final double leadingWeights = weightSum(state._animations.sublist(0, index));
+    final double leadingWeights =
+        weightSum(state._animations.sublist(0, index));
 
     /// 添加其伸缩值的一半，以到达中心
-    return (leadingWeights + state._evaluateFlex(state._animations[index]) / 2.0) / allWeights;
+    return (leadingWeights +
+            state._evaluateFlex(state._animations[index]) / 2.0) /
+        allWeights;
   }
 
   void dispose() {
@@ -651,7 +674,8 @@ class _RadialPainter extends CustomPainter {
           leftFraction = circle.horizontalLeadingOffset;
           break;
       }
-      final Offset center = Offset(leftFraction * size.width, size.height / 2.0);
+      final Offset center =
+          Offset(leftFraction * size.width, size.height / 2.0);
       final Tween<double> radiusTween = Tween<double>(
         begin: 0.0,
         end: _maxRadius(center, size),
