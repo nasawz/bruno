@@ -112,6 +112,7 @@ export 'src/components/form/base/input_item_interface.dart';
 export 'src/components/form/base/brn_form_item_type.dart';
 export 'src/components/form/items/general/brn_radio_input_item.dart';
 export 'src/components/form/items/general/brn_text_block_input_item.dart';
+export 'src/components/form/items/general/brn_checkbox_input_item.dart';
 export 'src/components/form/items/general/brn_text_select_item.dart';
 export 'src/components/form/items/general/brn_text_input_item.dart';
 export 'src/components/form/items/general/brn_multi_choice_input_item.dart';
@@ -160,7 +161,6 @@ export 'src/components/gallery/config/brn_photo_gallery_config.dart';
 export 'src/components/gallery/config/brn_bottom_card.dart';
 export 'src/components/gallery/config/brn_basic_gallery_config.dart';
 export 'src/components/gallery/config/brn_controller.dart';
-
 
 // 红点组件
 
