@@ -2,6 +2,7 @@ class BrnPrefixIconType {
   static const String TYPE_NORMAL = "type_normal";
   static const String TYPE_ADD = "type_add";
   static const String TYPE_REMOVE = "type_remove";
+  static const String TYPE_LOCK = "type_lock";
 }
 
 /// 用于描述表单项的类型
