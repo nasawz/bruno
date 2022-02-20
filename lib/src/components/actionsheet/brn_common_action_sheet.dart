@@ -37,12 +37,15 @@ class BrnCommonActionSheetItem {
   /// 辅助信息文本样式
   final TextStyle descStyle;
 
+  final Widget perWidget;
+
   BrnCommonActionSheetItem(
     this.title, {
     this.desc,
     this.actionStyle: BrnCommonActionSheetItemStyle.normal,
     this.titleStyle,
     this.descStyle,
+    this.perWidget,
   });
 }
 
@@ -236,15 +239,25 @@ class BrnCommonActionSheet extends StatelessWidget {
     // 如果有标题则添加标题
     if (action.title != null) {
       tileElements.add(Center(
-        child: Text(
-          action.title,
-          maxLines: 1,
-          style: action.titleStyle ??
-              (action.actionStyle == BrnCommonActionSheetItemStyle.alert
-                  ? this.themeData.itemTitleStyleAlert.generateTextStyle()
-                  : (action.actionStyle == BrnCommonActionSheetItemStyle.link
-                      ? this.themeData.itemTitleStyleLink.generateTextStyle()
-                      : this.themeData.itemTitleStyle.generateTextStyle())),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            action.perWidget != null ? action.perWidget : SizedBox(),
+            Text(
+              action.title,
+              maxLines: 1,
+              style: action.titleStyle ??
+                  (action.actionStyle == BrnCommonActionSheetItemStyle.alert
+                      ? this.themeData.itemTitleStyleAlert.generateTextStyle()
+                      : (action.actionStyle ==
+                              BrnCommonActionSheetItemStyle.link
+                          ? this
+                              .themeData
+                              .itemTitleStyleLink
+                              .generateTextStyle()
+                          : this.themeData.itemTitleStyle.generateTextStyle())),
+            ),
+          ],
         ),
       ));
       hasTitle = true;
