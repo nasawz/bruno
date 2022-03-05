@@ -7,6 +7,7 @@ import 'package:bruno/src/theme/brn_theme_configurator.dart';
 import 'package:bruno/src/theme/configs/brn_form_config.dart';
 import 'package:bruno/src/utils/brn_tools.dart';
 import 'package:bruno/src/utils/font/brn_font.dart';
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -90,9 +91,12 @@ class ExpansionElementWidget extends StatefulWidget {
 
 class _ExpansionElementState extends State<ExpansionElementWidget>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
+  static final Animatable<double> _easeOutTween =
+      CurveTween(curve: Curves.easeOut);
+  static final Animatable<double> _easeInTween =
+      CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween =
+      Tween<double>(begin: 0.0, end: 0.5);
 
   /// 头部颜色
   final ColorTween _borderColorTween = ColorTween();
@@ -111,15 +115,17 @@ class _ExpansionElementState extends State<ExpansionElementWidget>
   @override
   void initState() {
     super.initState();
-    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    _isExpanded =
+        PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
-    _controller =
-        AnimationController(duration: Duration(milliseconds: 200) /*_kExpand*/, vsync: this);
+    _controller = AnimationController(
+        duration: Duration(milliseconds: 200) /*_kExpand*/, vsync: this);
     _heightFactor = _controller.drive(_easeInTween);
     if (_isExpanded) {
       _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
     } else {
-      _iconTurns = _controller.drive(Tween<double>(begin: 0.5, end: 0.0).chain(_easeInTween));
+      _iconTurns = _controller
+          .drive(Tween<double>(begin: 0.5, end: 0.0).chain(_easeInTween));
     }
 
     /// 头部颜色
@@ -157,12 +163,14 @@ class _ExpansionElementState extends State<ExpansionElementWidget>
       }
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
-    if (widget.onExpansionChanged != null) widget.onExpansionChanged(_isExpanded);
+    if (widget.onExpansionChanged != null)
+      widget.onExpansionChanged(_isExpanded);
   }
 
   Widget _buildHeader(BuildContext context, Widget child) {
     final Color borderSideColor = /*_borderColor.value ??*/ Colors.transparent;
-    final Color backgroundColor = /*_backgroundColor.value ??*/ Colors.transparent;
+    final Color backgroundColor = /*_backgroundColor.value ??*/ Colors
+        .transparent;
 
     return Container(
       decoration: BoxDecoration(
@@ -180,10 +188,11 @@ class _ExpansionElementState extends State<ExpansionElementWidget>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                GestureDetector(
+                ExpandTapWidget(
                   onTap: () {
                     _handleTap();
                   },
+                  tapPadding: EdgeInsets.all(25.0),
                   child: Container(
                     padding: EdgeInsets.only(left: 20, top: 14),
                     child: Row(
@@ -192,8 +201,9 @@ class _ExpansionElementState extends State<ExpansionElementWidget>
                             padding: EdgeInsets.only(right: 6),
                             child: Text(
                               widget.title ?? "",
-                              style:
-                                  BrnFormUtil.getHeadTitleTextStyle(widget.themeData, isBold: true),
+                              style: BrnFormUtil.getHeadTitleTextStyle(
+                                  widget.themeData,
+                                  isBold: true),
                             )),
                         RotationTransition(
                           turns: _iconTurns,
