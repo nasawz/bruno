@@ -4,6 +4,7 @@ import 'package:bruno/src/theme/brn_theme.dart';
 import 'package:bruno/src/utils/i18n/brn_date_picker_i18n.dart';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// DatePicker's title widget.
 
@@ -92,7 +93,7 @@ class BrnPickerTitle extends StatelessWidget {
     if (cancelWidget == null) {
       TextStyle textStyle = themeData.cancelTextStyle.generateTextStyle();
       cancelWidget = Text(
-        '取消',
+        'actions_cancel'.tr,
         style: textStyle,
         textAlign: TextAlign.left,
       );
@@ -106,7 +107,7 @@ class BrnPickerTitle extends StatelessWidget {
     if (confirmWidget == null) {
       TextStyle textStyle = themeData.confirmTextStyle.generateTextStyle();
       confirmWidget = Text(
-        '完成',
+        'actions_done'.tr,
         style: textStyle,
         textAlign: TextAlign.right,
       );
