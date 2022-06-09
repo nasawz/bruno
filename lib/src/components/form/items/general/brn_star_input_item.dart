@@ -68,6 +68,9 @@ class BrnStarsFormItem extends StatefulWidget {
   /// form配置
   BrnFormItemConfig themeData;
 
+  /// 只显示start
+  final bool onlyStar;
+
   BrnStarsFormItem(
       {Key key,
       this.label,
@@ -81,11 +84,11 @@ class BrnStarsFormItem extends StatefulWidget {
       this.onAddTap,
       this.onRemoveTap,
       this.onTip,
-
       this.sumStar: 5,
       this.value: 0,
       this.onChanged,
-      this.themeData})
+      this.themeData,
+      this.onlyStar = false})
       : super() {
     this.themeData ??= BrnFormItemConfig();
     this.themeData = BrnThemeConfigurator.instance
@@ -98,7 +101,6 @@ class BrnStarsFormItem extends StatefulWidget {
   BrnStarsFormItemState createState() {
     return BrnStarsFormItemState();
   }
-
 }
 
 class BrnStarsFormItemState extends State<BrnStarsFormItem> {
@@ -115,21 +117,31 @@ class BrnStarsFormItemState extends State<BrnStarsFormItem> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Container(
-                  padding: BrnFormUtil.titleEdgeInsets(
-                      widget.prefixIconType, widget.isRequire, widget.themeData),
-                  child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: 25,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          BrnFormUtil.buildPrefixIcon(widget.prefixIconType, widget.isEdit, context, widget.onAddTap, widget.onRemoveTap),
-                          BrnFormUtil.buildRequireWidget(widget.isRequire),
-                          BrnFormUtil.buildTitleWidget(widget.title, widget.themeData),
-                          BrnFormUtil.buildTipLabelWidget(widget.tipLabel, widget.onTip, widget.themeData),
-                        ],
-                      ))),
+              Offstage(
+                offstage: widget.onlyStar,
+                child: Container(
+                    padding: BrnFormUtil.titleEdgeInsets(widget.prefixIconType,
+                        widget.isRequire, widget.themeData),
+                    child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: 25,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            BrnFormUtil.buildPrefixIcon(
+                                widget.prefixIconType,
+                                widget.isEdit,
+                                context,
+                                widget.onAddTap,
+                                widget.onRemoveTap),
+                            BrnFormUtil.buildRequireWidget(widget.isRequire),
+                            BrnFormUtil.buildTitleWidget(
+                                widget.title, widget.themeData),
+                            BrnFormUtil.buildTipLabelWidget(widget.tipLabel,
+                                widget.onTip, widget.themeData),
+                          ],
+                        ))),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: getStarWidgets(),
@@ -149,6 +161,7 @@ class BrnStarsFormItemState extends State<BrnStarsFormItem> {
   List<Widget> getStarWidgets() {
     _result.clear();
     int sum = widget.sumStar;
+    var grap = widget.onlyStar ? 6.0 : 8.0;
 
     for (int index = 0; index < sum; ++index) {
       _result.add(GestureDetector(
@@ -160,13 +173,14 @@ class BrnStarsFormItemState extends State<BrnStarsFormItem> {
           final int label = index;
           int oldValue = widget.value;
           widget.value = label + 1;
-          BrnFormUtil.notifyValueChanged(widget.onChanged, context, oldValue, widget.value);
+          BrnFormUtil.notifyValueChanged(
+              widget.onChanged, context, oldValue, widget.value);
           setState(() {});
         },
         child: Container(
           padding: (index == sum - 1)
-              ? EdgeInsets.only(left: 8, top: 5, bottom: 5)
-              : EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              ? EdgeInsets.only(left: grap, top: 5, bottom: 5)
+              : EdgeInsets.symmetric(horizontal: grap, vertical: 5),
           child: getStar(index, widget.value, sum),
         ),
       ));
@@ -194,7 +208,4 @@ class BrnStarsFormItemState extends State<BrnStarsFormItem> {
 
     return BrunoTools.getAssetImage(BrnAsset.ICON_STAR_UNSELECT);
   }
-
 }
-
-

@@ -3,7 +3,7 @@ version: 1.0.0
 homepage: https://github.com/LianjiaTech/bruno
 description: An enterprise-class package of Flutter components for mobile applications.
 environment: 
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.2.2 <3.0.0'
 
 dependencies: 
   xml: 5.3.1
