@@ -144,7 +144,7 @@ class BrnEnhanceNumberCard extends StatelessWidget {
                       Expanded(
                           child: Padding(
                         padding: EdgeInsets.only(
-                            left: isFirst ? 0 : 20, right: condition1 ? 0 : 20),
+                            left: isFirst ? 0 : 10, right: condition1 ? 0 : 10),
                         child: _buildItemWidget(data, defaultConfig,
                             width: singleWidth),
                       )),
