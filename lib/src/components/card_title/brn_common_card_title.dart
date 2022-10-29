@@ -49,11 +49,17 @@ class BrnCommonCardTitle extends StatelessWidget {
   /// 标题
   final String title;
 
+  /// 标题颜色
+  final Color titleColor;
+
   /// 最右侧的文字
   final String accessoryText;
 
   /// 最右侧的widget 如果两者同时存在 则以widget为主
   final Widget accessoryWidget;
+
+  /// 最左侧的widget
+  final Widget preWidget;
 
   /// 整个区域点击的回调
   final VoidCallback onTap;
@@ -78,8 +84,10 @@ class BrnCommonCardTitle extends StatelessWidget {
   BrnCommonCardTitle(
       {Key key,
       @required this.title,
+      this.titleColor,
       this.accessoryText,
       this.accessoryWidget,
+      this.preWidget,
       this.onTap,
       this.subTitleWidget,
       this.detailTextString,
@@ -180,12 +188,30 @@ class BrnCommonCardTitle extends StatelessWidget {
     if (subTitleWidget != null) {
       subWidget = _subTitleWidgetFromWidget();
     }
+
     var titleWidget = RichText(
       textScaleFactor: MediaQuery.of(context)?.textScaleFactor ?? 1.0,
       text: TextSpan(
-          text: title ?? "",
+          text: "",
           style: defaultConfig?.titleWithHeightTextStyle?.generateTextStyle(),
           children: <InlineSpan>[
+            this.preWidget != null
+                ? WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Container(
+                      width: 24,
+                      height: 20,
+                      padding: EdgeInsets.only(top: 2),
+                      alignment: Alignment.centerLeft,
+                      child: this.preWidget,
+                    ))
+                : WidgetSpan(child: SizedBox.shrink()),
+            TextSpan(
+              text: title ?? "",
+              style: defaultConfig?.titleWithHeightTextStyle
+                  ?.generateTextStyle()
+                  .copyWith(color: this.titleColor ?? Colors.black),
+            ),
             WidgetSpan(child: subWidget, alignment: defaultConfig.alignment),
           ]),
     );
@@ -219,4 +245,14 @@ class BrnCommonCardTitle extends StatelessWidget {
       padding: EdgeInsets.only(top: 4),
     );
   }
+}
+
+Color _hexToColor(String hex) {
+  assert(RegExp(r'^#([0-9a-fA-F]{6})|([0-9a-fA-F]{8})$').hasMatch(hex),
+      'hex color must be #rrggbb or #rrggbbaa');
+
+  return Color(
+    int.parse(hex.substring(1), radix: 16) +
+        (hex.length == 7 ? 0xff000000 : 0x00000000),
+  );
 }

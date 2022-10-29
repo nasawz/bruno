@@ -291,6 +291,7 @@ class _BrnMultiDataPickerState extends State<BrnMultiDataPicker> {
             list.add(Center(
               child: Text(
                 widget.delegate.titleForRowInComponent(component, i),
+                textAlign: TextAlign.center,
                 style: _selectedIndexList[component] == i
                     ? widget.themeData.itemTextSelectedStyle.generateTextStyle()
                     : widget.themeData.itemTextStyle.generateTextStyle(),
