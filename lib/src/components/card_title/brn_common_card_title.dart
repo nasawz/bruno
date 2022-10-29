@@ -199,8 +199,8 @@ class BrnCommonCardTitle extends StatelessWidget {
                 ? WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
                     child: Container(
-                      width: 24,
-                      height: 20,
+                      width: 22,
+                      height: 18,
                       padding: EdgeInsets.only(top: 2),
                       alignment: Alignment.centerLeft,
                       child: this.preWidget,
