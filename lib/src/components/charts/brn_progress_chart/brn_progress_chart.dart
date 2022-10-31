@@ -34,6 +34,9 @@ class BrnProgressChart extends StatefulWidget {
   /// 是否展示动画，默认 false
   final bool showAnimation;
 
+  /// 是否在进度值为最大的时候也展示圆角
+  final bool alwaysShowRadius;
+
   const BrnProgressChart(
       {Key key,
       this.width = 0,
@@ -44,7 +47,8 @@ class BrnProgressChart extends StatefulWidget {
       this.brnProgressIndicatorBuilder,
       this.colors = const [Colors.blueAccent, Colors.blue],
       this.backgroundColor = Colors.lightBlueAccent,
-      this.showAnimation = false})
+      this.showAnimation = false,
+      this.alwaysShowRadius = true})
       : assert(0 <= value && value <= 1, 'value 必须在 0 到 1 之间'),
         super(key: key);
 
@@ -101,7 +105,8 @@ class BrnProgressChartState extends State<BrnProgressChart>
           painter: BrnProgressChartPainter(
               value: _value,
               backgroundColor: widget.backgroundColor,
-              colors: widget.colors),
+              colors: widget.colors,
+              alwaysShowRadius: widget.alwaysShowRadius),
         ),
         Container(
           width: widget.width,

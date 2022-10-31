@@ -41,13 +41,23 @@ class BrnProgressChartPainter extends CustomPainter {
 
     Rect progressBarRect = Rect.fromLTWH(0, 0, size.width * value, size.height);
 
+    // RRect progressBarRRect = RRect.fromRectAndCorners(progressBarRect,
+    //     bottomLeft: Radius.circular(
+    //         1 == value && false == this.alwaysShowRadius ? 0 : this.radius),
+    //     bottomRight: Radius.circular(
+    //         1 == value && false == this.alwaysShowRadius ? 0 : this.radius),
+    //     topLeft: Radius.circular(
+    //         1 == value && false == this.alwaysShowRadius ? 0 : this.radius),
+    //     topRight: Radius.circular(
+    //         1 == value && false == this.alwaysShowRadius ? 0 : this.radius));
+
     RRect progressBarRRect = RRect.fromRectAndCorners(progressBarRect,
         bottomLeft: Radius.circular(
-            1 == value && false == this.alwaysShowRadius ? 0 : this.radius),
+            1 == value && false == this.alwaysShowRadius ? 0 : 0),
         bottomRight: Radius.circular(
             1 == value && false == this.alwaysShowRadius ? 0 : this.radius),
         topLeft: Radius.circular(
-            1 == value && false == this.alwaysShowRadius ? 0 : this.radius),
+            1 == value && false == this.alwaysShowRadius ? 0 : 0),
         topRight: Radius.circular(
             1 == value && false == this.alwaysShowRadius ? 0 : this.radius));
 
