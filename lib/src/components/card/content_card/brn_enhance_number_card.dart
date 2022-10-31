@@ -55,7 +55,7 @@ import 'package:flutter/widgets.dart';
 ///
 ///
 class BrnEnhanceNumberCard extends StatelessWidget {
-  final List<BrnNumberInfoItemModel> itemChildren;
+  final List itemChildren;
 
   ///如果超过一行，行间距则 默认为16
   final double runningSpace;
@@ -133,33 +133,69 @@ class BrnEnhanceNumberCard extends StatelessWidget {
               bool allCondition = condition1 || condition2;
 
               bool isFirst = (itemChildren.indexOf(data) + 1) % count == 1;
-              return Container(
-                  width: singleWidth,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      // 每行的第一个 的左边距是0，使用的是leftPadding的功能
-                      // 每行的最后一个的 右边距，使用的是rightPadding的功能
-                      Expanded(
-                          child: Padding(
-                        padding: EdgeInsets.only(
-                            left: isFirst ? 0 : 10, right: condition1 ? 0 : 10),
-                        child: _buildItemWidget(data, defaultConfig,
-                            width: singleWidth),
-                      )),
-                      //分割线的显示规则是：固定高度47
-                      //                item之间显示，最后一个不显示
-                      Visibility(
-                        visible: !allCondition,
-                        child: Container(
-                          height: 47,
-                          width: defaultConfig.dividerWidth,
-                          color: defaultConfig.commonConfig.dividerColorBase,
+
+              if (data is BrnNumberInfoItemModel) {
+                return Container(
+                    width: singleWidth,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        // 每行的第一个 的左边距是0，使用的是leftPadding的功能
+                        // 每行的最后一个的 右边距，使用的是rightPadding的功能
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.only(
+                              left: isFirst ? 0 : 10,
+                              right: condition1 ? 0 : 10),
+                          child: _buildItemWidget(data, defaultConfig,
+                              width: singleWidth),
+                        )),
+                        //分割线的显示规则是：固定高度47
+                        //                item之间显示，最后一个不显示
+                        Visibility(
+                          visible: !allCondition,
+                          child: Container(
+                            height: 47,
+                            width: defaultConfig.dividerWidth,
+                            color: defaultConfig.commonConfig.dividerColorBase,
+                          ),
                         ),
-                      ),
-                    ],
-                  ));
+                      ],
+                    ));
+              } else {
+                return Container(
+                    width: singleWidth,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        // 每行的第一个 的左边距是0，使用的是leftPadding的功能
+                        // 每行的最后一个的 右边距，使用的是rightPadding的功能
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.only(
+                              left: isFirst ? 0 : 10,
+                              right: condition1 ? 0 : 10),
+                          child: Container(
+                            width: singleWidth,
+                            height: 47,
+                            child: data,
+                          ),
+                        )),
+                        //分割线的显示规则是：固定高度47
+                        //                item之间显示，最后一个不显示
+                        Visibility(
+                          visible: !allCondition,
+                          child: Container(
+                            height: 47,
+                            width: defaultConfig.dividerWidth,
+                            color: defaultConfig.commonConfig.dividerColorBase,
+                          ),
+                        ),
+                      ],
+                    ));
+              }
             }).toList(),
           );
         } else {
