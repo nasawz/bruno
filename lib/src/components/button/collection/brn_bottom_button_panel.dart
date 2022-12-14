@@ -106,7 +106,8 @@ class BrnBottomButtonPanel extends StatelessWidget {
       VoidCallback secondaryButtonOnTap,
       bool enableMainButton = true,
       List<BrnVerticalIconButton> iconButtonList}) {
-    if ((buttonTitleList == null || buttonTitleList.isEmpty) && iconButtonList == null) {
+    if ((buttonTitleList == null || buttonTitleList.isEmpty) &&
+        iconButtonList == null) {
       return Container(
         height: 0,
         width: 0,
@@ -196,44 +197,42 @@ class BrnBottomButtonPanel extends StatelessWidget {
   }
 
   Widget _secondaryWidget() {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.only(left: _isEmptyIcon() ? 12 : 8),
-        child: GestureDetector(
-          onTap: () {
-            if (secondaryButtonOnTap != null && enableSecondaryButton) {
-              secondaryButtonOnTap();
-            }
-          },
-          child: Container(
-              height: 48,
-              padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
-              decoration: BoxDecoration(
-                color: enableSecondaryButton
-                    ? BrnThemeConfigurator.instance.getConfig().commonConfig.brandAuxiliary
-                    : Color(0xFFCCCCCC),
-                borderRadius: BorderRadius.all(Radius.circular(6.0)),
-              ),
-              child: Center(
-                child: Text(
-                  secondaryButtonName ?? "",
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: enableSecondaryButton
-                        ? Colors.white
-                        : BrnThemeConfigurator.instance
-                            .getConfig()
-                            .commonConfig
-                            .colorTextBaseInverse
-                            .withOpacity(0.7),
-                  ),
+    return Padding(
+      padding: EdgeInsets.only(left: _isEmptyIcon() ? 12 : 8),
+      child: GestureDetector(
+        onTap: () {
+          if (secondaryButtonOnTap != null && enableSecondaryButton) {
+            secondaryButtonOnTap();
+          }
+        },
+        child: Container(
+            height: 48,
+            padding: EdgeInsets.only(left: 18, right: 18, top: 6, bottom: 6),
+            decoration: BoxDecoration(
+              color: enableSecondaryButton
+                  ? Color(0xFF8A491E).withOpacity(0.6)
+                  : Color(0xFFCCCCCC),
+              borderRadius: BorderRadius.all(Radius.circular(6.0)),
+            ),
+            child: Center(
+              child: Text(
+                secondaryButtonName ?? "",
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: enableSecondaryButton
+                      ? Colors.white
+                      : BrnThemeConfigurator.instance
+                          .getConfig()
+                          .commonConfig
+                          .colorTextBaseInverse
+                          .withOpacity(0.7),
                 ),
-              )),
-        ),
+              ),
+            )),
       ),
     );
   }
@@ -250,7 +249,10 @@ class BrnBottomButtonPanel extends StatelessWidget {
           padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
           decoration: BoxDecoration(
             color: enableMainButton
-                ? BrnThemeConfigurator.instance.getConfig().commonConfig.brandPrimary
+                ? BrnThemeConfigurator.instance
+                    .getConfig()
+                    .commonConfig
+                    .brandPrimary
                 : Color(0xFFCCCCCC),
             borderRadius: BorderRadius.all(Radius.circular(6.0)),
           ),
@@ -277,7 +279,8 @@ class BrnBottomButtonPanel extends StatelessWidget {
 
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.only(left: (_isEmptyIcon() && _isEmptySecondary()) ? 12 : 8),
+        padding: EdgeInsets.only(
+            left: (_isEmptyIcon() && _isEmptySecondary()) ? 12 : 8),
         child: mainWidget,
       ),
     );

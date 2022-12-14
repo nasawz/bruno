@@ -3,6 +3,7 @@ import 'package:bruno/src/components/form/base/input_item_interface.dart';
 import 'package:bruno/src/constants/brn_asset_constants.dart';
 import 'package:bruno/src/theme/brn_theme.dart';
 import 'package:bruno/src/utils/brn_tools.dart';
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,7 +19,8 @@ class BrnFormUtil {
       offstage: prefixIconType == BrnPrefixIconType.TYPE_NORMAL,
       child: Container(
         padding: EdgeInsets.only(right: 6),
-        child: GestureDetector(
+        child: ExpandTapWidget(
+          tapPadding: const EdgeInsets.all(10.0),
           onTap: () {
             if (!BrnFormUtil.isEdit(isEdit)) {
               return;
@@ -122,6 +124,12 @@ class BrnFormUtil {
     } else if (type == BrnPrefixIconType.TYPE_LOCK) {
       return Icon(
         Icons.lock,
+        size: 18,
+        color: Color(0xFF999999),
+      );
+    } else if (type == BrnPrefixIconType.TYPE_ROOM) {
+      return Icon(
+        Icons.room,
         size: 18,
         color: Color(0xFF999999),
       );
@@ -241,6 +249,10 @@ class BrnFormUtil {
   static void notifyAddRemoveTap(BuildContext context, String prefixIconType,
       VoidCallback onAddTap, VoidCallback onRemoveTap) {
     if (BrnPrefixIconType.TYPE_ADD == prefixIconType) {
+      if (onAddTap != null) {
+        onAddTap();
+      }
+    } else if (BrnPrefixIconType.TYPE_ROOM == prefixIconType) {
       if (onAddTap != null) {
         onAddTap();
       }

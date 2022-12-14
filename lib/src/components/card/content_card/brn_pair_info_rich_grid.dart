@@ -189,7 +189,7 @@ class BrnRichInfoGrid extends StatelessWidget {
       );
     }
     if (info.valuePart == null) {
-      return Text('--', style: _getValueStyle('--', themeData: config));
+      return Text('', style: _getValueStyle('--', themeData: config));
     }
     if (info.valuePart is String) {
       String value = info.valuePart.isEmpty ? '--' : info.valuePart;
