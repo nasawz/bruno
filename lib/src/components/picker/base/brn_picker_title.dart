@@ -64,7 +64,7 @@ class BrnPickerTitle extends StatelessWidget {
                   },
                 ),
                 Text(
-                  pickerTitleConfig.titleContent,
+                  pickerTitleConfig.titleContent.tr,
                   style: themeData.titleTextStyle.generateTextStyle(),
                 ),
                 ExpandTapWidget(

@@ -76,6 +76,8 @@ class BrnBottomButtonPanel extends StatelessWidget {
   /// 如果设置为false，按钮置灰且不响应[mainButtonOnTap]
   final bool enableMainButton;
 
+  final Color mainButtonColor;
+
   /// 次按钮是否可用 默认可用
   /// 如果设置为false，按钮置灰且不响应[secondaryButtonName]
   final bool enableSecondaryButton;
@@ -84,6 +86,7 @@ class BrnBottomButtonPanel extends StatelessWidget {
       {Key key,
       @required this.mainButtonName,
       @required this.mainButtonOnTap,
+      this.mainButtonColor,
       this.secondaryButtonName,
       this.secondaryButtonOnTap,
       this.enableMainButton = true,
@@ -249,10 +252,12 @@ class BrnBottomButtonPanel extends StatelessWidget {
           padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
           decoration: BoxDecoration(
             color: enableMainButton
-                ? BrnThemeConfigurator.instance
-                    .getConfig()
-                    .commonConfig
-                    .brandPrimary
+                ? mainButtonColor != null
+                    ? mainButtonColor
+                    : BrnThemeConfigurator.instance
+                        .getConfig()
+                        .commonConfig
+                        .brandPrimary
                 : Color(0xFFCCCCCC),
             borderRadius: BorderRadius.all(Radius.circular(6.0)),
           ),

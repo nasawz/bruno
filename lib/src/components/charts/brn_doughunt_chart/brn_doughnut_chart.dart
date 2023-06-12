@@ -28,12 +28,14 @@ class BrnDoughnutDataItem {
 
   dynamic extData = {};
 
-  BrnDoughnutDataItem({
-    this.value,
-    this.title,
-    this.color = Colors.blueAccent,
-    this.extData,
-  });
+  int index = 0;
+
+  BrnDoughnutDataItem(
+      {this.value,
+      this.title,
+      this.color = Colors.blueAccent,
+      this.extData,
+      this.index = 0});
 }
 
 /// 选中扇形区域后执行的回调

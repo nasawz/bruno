@@ -4,6 +4,7 @@ import 'package:bruno/src/components/picker/brn_picker_cliprrect.dart';
 import 'package:bruno/src/theme/brn_theme_configurator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 
 /// 该picker用于显示自定的底部弹出框: 对话框结构如下：
 ///              column
@@ -25,7 +26,7 @@ class BrnBottomPicker {
   static void show(
     BuildContext context, {
     @required contentWidget,
-    String title = '请选择',
+    String title = 'common_pleaseSelect',
     dynamic confirm,
     dynamic cancel,
     VoidCallback onConfirm,
@@ -46,8 +47,8 @@ class BrnBottomPicker {
           onConfirmPressed: onConfirm,
           onCancelPressed: onCancel,
           barrierDismissible: barrierDismissible,
-          pickerTitleConfig:
-              BrnPickerTitleConfig(titleContent: title, showTitle: showTitle),
+          pickerTitleConfig: BrnPickerTitleConfig(
+              titleContent: title.tr, showTitle: showTitle),
         );
         return theme != null ? Theme(data: theme, child: pageChild) : pageChild;
       },

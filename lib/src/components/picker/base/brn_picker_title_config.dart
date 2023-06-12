@@ -16,7 +16,7 @@ class BrnPickerTitleConfig {
     this.confirm,
     this.title,
     this.showTitle: PICKER_SHOW_TITLE_DEFAULT,
-    this.titleContent: "请选择",
+    this.titleContent: "common_pleaseSelect",
   });
 
   static const BrnPickerTitleConfig Default = const BrnPickerTitleConfig();
